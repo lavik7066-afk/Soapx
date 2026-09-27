@@ -123,7 +123,7 @@ export const emoji = {
   "reply3": "<:reply3:1461688830716284960>",
   "reply": "<:reply:1461688841604960409>",
   "reply4": "<:reply4:1461688851960434810>",
-  "soapx": "<:soapx:1553805402217517206>"
+  "soapx": "<a:bubbles:1553824084763344986>"
 };
 
 emoji.get = function(name, fallback = "") {
