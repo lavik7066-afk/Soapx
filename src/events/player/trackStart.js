@@ -45,13 +45,9 @@ export default {
       let message;
 
       try {
-        const musicCard = new MusicCard();
-        const buffer = await musicCard.createMusicCard(track, 0);
-        const attachment = new AttachmentBuilder(buffer, { name: 'errorx-nowplaying.png' });
-        const components = createControlComponents();
+       const components = createControlComponents();
 
         message = await EventUtils.sendPlayerMessage(client, player, {
-          files: [attachment],
           components,
         });
       } catch (cardError) {
