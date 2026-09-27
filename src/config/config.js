@@ -5,6 +5,7 @@ dotenv.config();
 // Now they require explicit env vars — bot will fail clearly if not configured.
 const lavalinkHost = process.env.LAVALINK_HOST;
 const lavalinkPassword = process.env.LAVALINK_PASSWORD;
+const databasePath = process.env.DATABASE_PATH || './data';
 
 if (!lavalinkHost || !lavalinkPassword) {
   console.warn(
@@ -55,14 +56,14 @@ export const config = {
 
   // Database file paths (.bread = better-sqlite3 databases)
   database: {
-    guild: './database/data/guild.bread',
-    user: './database/data/user.bread',
-    premium: './database/data/premium.bread',
-    antiabuse: './database/data/antiabuse.bread',
-    playlists: './database/data/playlists.bread',
-    ticket: './database/data/ticket.bread',
-    invites: './database/data/invites.bread',
-  },
+  guild: `${databasePath}/guild.bread`,
+  user: `${databasePath}/user.bread`,
+  premium: `${databasePath}/premium.bread`,
+  antiabuse: `${databasePath}/antiabuse.bread`,
+  playlists: `${databasePath}/playlists.bread`,
+  ticket: `${databasePath}/ticket.bread`,
+  invites: `${databasePath}/invites.bread`,
+},
 
   // External links
   links: {
