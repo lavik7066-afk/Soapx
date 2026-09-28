@@ -46,11 +46,10 @@ export default {
     const totalUsers = counts.reduce((total, count) => total + count, 0);
 
     user.setActivity({
-      name: `${totalUsers.toLocaleString()} users on lavish.exe`,
-      type: ActivityType.Streaming,
-      url: "https://youtu.be/dQw4w9WgXcQ?si=9wVubeNTACrCkRIz",
-    });
-
+  name: `${totalUsers.toLocaleString()} users on lavish.exe`,
+  type: ActivityType.Watching,
+});
+    
     logger.info("Bot", `Streaming status updated: ${totalUsers.toLocaleString()} users`);
   } catch (error) {
     logger.error("Bot", "Failed to update streaming status:", error);
