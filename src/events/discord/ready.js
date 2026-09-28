@@ -34,16 +34,33 @@ export default {
       }, 10000);
     }
 
-    const updateStatus = () => {
-      user.setActivity({
-        name: config.status.name,
-        type: getStatusType(config.status.type),
-      });
-    };
+    const updateStatus = async () => {
+  try {
+    const counts = await client.cluster.broadcastEval(client =>
+      client.guilds.cache.reduce(
+        (total, guild) => total + (guild.memberCount || 0),
+        0,
+      ),
+    );
 
-    updateStatus();
-    setInterval(updateStatus, 10 * 60 * 1000);
-    user.setStatus(config.status.status || "dnd");
+    const totalUsers = counts.reduce((total, count) => total + count, 0);
+
+    user.setActivity({
+      name: `${totalUsers.toLocaleString()} users on lavish.exe`,
+      type: ActivityType.Streaming,
+      url: "https://youtu.be/dQw4w9WgXcQ?si=9wVubeNTACrCkRIz",
+    });
+
+    logger.info("Bot", `Streaming status updated: ${totalUsers.toLocaleString()} users`);
+  } catch (error) {
+    logger.error("Bot", "Failed to update streaming status:", error);
+  }
+};
+
+updateStatus();
+setInterval(updateStatus, 10 * 60 * 1000);
+
+user.setStatus(config.status.status || "dnd");
 
     logger.info("Bot", "Starting expired mutes checker (every 60 seconds)");
     setInterval(async () => {
