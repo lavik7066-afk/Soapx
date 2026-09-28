@@ -45,10 +45,31 @@ export default {
 
     const totalUsers = counts.reduce((total, count) => total + count, 0);
 
-    user.setActivity({
-  name: `${totalUsers.toLocaleString()} users on lavish.exe`,
-  type: ActivityType.Watching,
-});
+    user.setPresence({
+      activities: [
+        {
+          name: `${totalUsers.toLocaleString()} users on lavish.exe`,
+          type: ActivityType.Watching,
+        },
+        {
+          name: config.status.name || ".help | Stalking",
+          type: getStatusType(config.status.type),
+        },
+      ],
+      status: config.status.status || "dnd",
+    });
+
+    logger.info(
+      "Bot",
+      `Status updated: ${totalUsers.toLocaleString()} users on lavish.exe`,
+    );
+  } catch (error) {
+    logger.error("Bot", "Failed to update status:", error);
+  }
+};
+
+updateStatus();
+setInterval(updateStatus, 10 * 60 * 1000);
     
     logger.info("Bot", `Streaming status updated: ${totalUsers.toLocaleString()} users`);
   } catch (error) {
