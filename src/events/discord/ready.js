@@ -52,8 +52,9 @@ export default {
           type: ActivityType.Watching,
         },
         {
-          name: config.status.name || ".help | Stalking",
-          type: getStatusType(config.status.type),
+          name: config.status.name,
+          state: config.status.name,
+          type: ActivityType.Custom,
         },
       ],
       status: config.status.status || "dnd",
@@ -70,17 +71,6 @@ export default {
 
 updateStatus();
 setInterval(updateStatus, 10 * 60 * 1000);
-    
-    logger.info("Bot", `Streaming status updated: ${totalUsers.toLocaleString()} users`);
-  } catch (error) {
-    logger.error("Bot", "Failed to update streaming status:", error);
-  }
-};
-
-updateStatus();
-setInterval(updateStatus, 10 * 60 * 1000);
-
-user.setStatus(config.status.status || "dnd");
 
     logger.info("Bot", "Starting expired mutes checker (every 60 seconds)");
     setInterval(async () => {
