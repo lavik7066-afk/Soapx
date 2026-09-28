@@ -51,11 +51,6 @@ export default {
           name: `${totalUsers.toLocaleString()} users on lavish.exe`,
           type: ActivityType.Watching,
         },
-        {
-          name: config.status.name,
-          state: config.status.name,
-          type: ActivityType.Custom,
-        },
       ],
       status: config.status.status || "dnd",
     });
@@ -71,7 +66,7 @@ export default {
 
 updateStatus();
 setInterval(updateStatus, 10 * 60 * 1000);
-
+    
     logger.info("Bot", "Starting expired mutes checker (every 60 seconds)");
     setInterval(async () => {
       try {
